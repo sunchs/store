@@ -28,6 +28,8 @@
         <module>registry</module>
         <module>gateway</module>
         <module>sale-service</module>
+        <module>shop-service</module>
+        <module>order-service</module>
     </modules>
 
     <dependencies>
