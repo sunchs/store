@@ -15,8 +15,8 @@ import java.io.Serializable;
  * @author king
  * @since 2020-08-11
  */
-@TableName("shop_img")
-public class ShopImg extends Model<ShopImg> {
+@TableName("shop_image")
+public class ShopImage extends Model<ShopImage> {
 
     private static final long serialVersionUID = 1L;
 
@@ -128,7 +128,7 @@ public class ShopImg extends Model<ShopImg> {
 
     @Override
     public String toString() {
-        return "ShopImg{" +
+        return "ShopImage{" +
         "imgId=" + imgId +
         ", shopId=" + shopId +
         ", type=" + type +

@@ -50,9 +50,11 @@ public class ShopService implements IShopService {
      */
     private void saveShopExtend(ShopParam param, Integer shopId) {
         // 清理历史数据
-        Wrapper<ShopExtend> wrapper = new EntityWrapper<ShopExtend>()
-                .eq(ShopExtend.SHOP_ID, shopId);
-        shopExtendService.delete(wrapper);
+        if (param.getShopId() > 0) {
+            Wrapper<ShopExtend> wrapper = new EntityWrapper<ShopExtend>()
+                    .eq(ShopExtend.SHOP_ID, shopId);
+            shopExtendService.delete(wrapper);
+        }
         // 存储扩展信息
         List<ShopExtendParam> list = param.getExtendList();
         if (CollectionUtils.isNotEmpty(list)) {
@@ -76,9 +78,11 @@ public class ShopService implements IShopService {
      */
     private void saveShopImage(ShopParam param, Integer shopId) {
         // 清理历史数据
-        Wrapper<ShopImage> wrapper = new EntityWrapper<ShopImage>()
-                .eq(ShopImage.SHOP_ID, shopId);
-        shopImageService.delete(wrapper);
+        if (param.getShopId() > 0) {
+            Wrapper<ShopImage> wrapper = new EntityWrapper<ShopImage>()
+                    .eq(ShopImage.SHOP_ID, shopId);
+            shopImageService.delete(wrapper);
+        }
         // 存储图片信息
         List<ShopImageParam> list = param.getImageList();
         if (CollectionUtils.isNotEmpty(list)) {
