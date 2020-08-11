@@ -2,27 +2,22 @@ package com.sunchs.store.shop.bean;
 
 import java.math.BigDecimal;
 
-public class ShopExtendParam {
+public class ShopExtendVO {
 
     /**
      * 扩展ID
      */
-    private int extId;
-
-    /**
-     * 商品ID
-     */
-    private int shopId;
+    private Integer extId;
 
     /**
      * 颜色ID
      */
-    private int colorId;
+    private Integer colorId;
 
     /**
      * 尺寸ID
      */
-    private int sizeId;
+    private Integer sizeId;
 
     /**
      * 市场价格
@@ -37,47 +32,34 @@ public class ShopExtendParam {
     /**
      * 重量（单位：克）
      */
-    private int weight;
+    private Integer weight;
 
     /**
      * 库存
      */
-    private int stock;
+    private Integer stock;
 
-    /**
-     * 库存警告
-     */
-    private int stockWarning;
-
-    public int getExtId() {
+    public Integer getExtId() {
         return extId;
     }
 
-    public void setExtId(int extId) {
+    public void setExtId(Integer extId) {
         this.extId = extId;
     }
 
-    public int getShopId() {
-        return shopId;
-    }
-
-    public void setShopId(int shopId) {
-        this.shopId = shopId;
-    }
-
-    public int getColorId() {
+    public Integer getColorId() {
         return colorId;
     }
 
-    public void setColorId(int colorId) {
+    public void setColorId(Integer colorId) {
         this.colorId = colorId;
     }
 
-    public int getSizeId() {
+    public Integer getSizeId() {
         return sizeId;
     }
 
-    public void setSizeId(int sizeId) {
+    public void setSizeId(Integer sizeId) {
         this.sizeId = sizeId;
     }
 
@@ -97,27 +79,19 @@ public class ShopExtendParam {
         this.price = price;
     }
 
-    public int getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
-    public int getStock() {
+    public Integer getStock() {
         return stock;
     }
 
-    public void setStock(int stock) {
+    public void setStock(Integer stock) {
         this.stock = stock;
-    }
-
-    public int getStockWarning() {
-        return stockWarning;
-    }
-
-    public void setStockWarning(int stockWarning) {
-        this.stockWarning = stockWarning;
     }
 }

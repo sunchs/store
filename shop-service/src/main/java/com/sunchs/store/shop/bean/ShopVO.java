@@ -1,20 +1,18 @@
 package com.sunchs.store.shop.bean;
 
-import com.sunchs.store.framework.bean.PagingParam;
-
 import java.util.List;
 
-public class ShopParam extends PagingParam {
+public class ShopVO {
 
     /**
      * 商品ID
      */
-    private int shopId;
+    private Integer shopId;
 
     /**
      * 商品分类ID
      */
-    private int typeId;
+    private Integer typeId;
 
     /**
      * 商品标题
@@ -27,11 +25,6 @@ public class ShopParam extends PagingParam {
     private String shopSn;
 
     /**
-     * 商品状态，0、停售；1、开售；2、删除
-     */
-    private int status;
-
-    /**
      * 详细内容
      */
     private String content;
@@ -39,27 +32,26 @@ public class ShopParam extends PagingParam {
     /**
      * 商品扩展信息
      */
-    List<ShopExtendParam> extendList;
+    List<ShopExtendVO> extendList;
 
     /**
      * 商品图片信息
      */
-    List<ShopImageParam> imageList;
+    List<ShopImageVO> imageList;
 
-
-    public int getShopId() {
+    public Integer getShopId() {
         return shopId;
     }
 
-    public void setShopId(int shopId) {
+    public void setShopId(Integer shopId) {
         this.shopId = shopId;
     }
 
-    public int getTypeId() {
+    public Integer getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(int typeId) {
+    public void setTypeId(Integer typeId) {
         this.typeId = typeId;
     }
 
@@ -79,14 +71,6 @@ public class ShopParam extends PagingParam {
         this.shopSn = shopSn;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
     public String getContent() {
         return content;
     }
@@ -95,19 +79,19 @@ public class ShopParam extends PagingParam {
         this.content = content;
     }
 
-    public List<ShopExtendParam> getExtendList() {
+    public List<ShopExtendVO> getExtendList() {
         return extendList;
     }
 
-    public void setExtendList(List<ShopExtendParam> extendList) {
+    public void setExtendList(List<ShopExtendVO> extendList) {
         this.extendList = extendList;
     }
 
-    public List<ShopImageParam> getImageList() {
+    public List<ShopImageVO> getImageList() {
         return imageList;
     }
 
-    public void setImageList(List<ShopImageParam> imageList) {
+    public void setImageList(List<ShopImageVO> imageList) {
         this.imageList = imageList;
     }
 }

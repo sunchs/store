@@ -2,22 +2,28 @@ package com.sunchs.store.shop.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.sunchs.store.db.business.entity.Shop;
 import com.sunchs.store.db.business.entity.ShopExtend;
 import com.sunchs.store.db.business.entity.ShopImage;
 import com.sunchs.store.db.business.service.impl.ShopExtendServiceImpl;
 import com.sunchs.store.db.business.service.impl.ShopImageServiceImpl;
 import com.sunchs.store.db.business.service.impl.ShopServiceImpl;
+import com.sunchs.store.framework.bean.PagingList;
 import com.sunchs.store.framework.constants.CacheKeys;
+import com.sunchs.store.framework.enums.ShopStatusEnum;
+import com.sunchs.store.framework.util.PagingUtil;
 import com.sunchs.store.framework.util.RedisClient;
 import com.sunchs.store.shop.bean.ShopExtendParam;
 import com.sunchs.store.shop.bean.ShopImageParam;
 import com.sunchs.store.shop.bean.ShopParam;
+import com.sunchs.store.shop.bean.ShopVO;
 import com.sunchs.store.shop.service.IShopService;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,6 +35,20 @@ public class ShopService implements IShopService {
     private ShopExtendServiceImpl shopExtendService;
     @Autowired
     private ShopImageServiceImpl shopImageService;
+
+    @Override
+    public PagingList<ShopVO> getPageList(ShopParam param) {
+        Wrapper<Shop> wrapper = new EntityWrapper<>();
+        // 按商品状态
+        wrapper.eq(Shop.STATUS, ShopStatusEnum.ENABLE.value);
+        // 按商品分类
+        if (param.getTypeId() > 0) {
+            wrapper.eq(Shop.TYPE_ID, param.getTypeId());
+        }
+        Page<Shop> page = shopDBService.getPage(wrapper, param.getPageNow(), param.getPageSize());
+        List<ShopVO> list = parseData(page.getRecords());
+        return PagingUtil.getData(list, page.getTotal(), page.getCurrent(), page.getSize());
+    }
 
     @Override
     public void save(ShopParam param) {
@@ -136,5 +156,22 @@ public class ShopService implements IShopService {
      */
     private void clearShopCache(Integer shopId) {
         RedisClient.delKey(CacheKeys.SHOP_CACHE_KEY + shopId);
+    }
+
+    /**
+     * 格式化数据
+     */
+    private List<ShopVO> parseData(List<Shop> shop) {
+        List<ShopVO> list = new ArrayList<>(shop.size());
+        shop.forEach(s -> {
+            ShopVO vo = new ShopVO();
+            vo.setShopId(s.getShopId());
+            vo.setTypeId(s.getTypeId());
+            vo.setTitle(s.getTitle());
+            vo.setShopSn(s.getShopSn());
+            vo.setContent(s.getContent());
+            list.add(vo);
+        });
+        return list;
     }
 }

@@ -4,6 +4,8 @@ import com.sunchs.store.shop.bean.ShopTypeParam;
 
 public interface IShopTypeService {
 
+
+
     /**
      * 新增、编辑 分类信息
      */
