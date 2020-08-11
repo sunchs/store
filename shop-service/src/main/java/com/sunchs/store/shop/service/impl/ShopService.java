@@ -45,6 +45,8 @@ public class ShopService implements IShopService {
                 saveShopExtend(param, data.getShopId());
                 // 保存图片信息
                 saveShopImage(param, data.getShopId());
+                // 清除缓存
+                clearShopCache(data.getShopId());
             }
         } catch (Exception e) {
             // 异常记录收集
@@ -60,7 +62,7 @@ public class ShopService implements IShopService {
             data.setStatus(status);
             shopDBService.updateById(data);
             // 清除缓存
-            RedisClient.delKey(CacheKeys.SHOP_CACHE_KEY + shopId);
+            clearShopCache(shopId);
         } catch (Exception e) {
             // 异常记录收集
         }
@@ -127,5 +129,12 @@ public class ShopService implements IShopService {
         } catch (Exception e) {
             // 异常记录收集
         }
+    }
+
+    /**
+     * 清理商品缓存
+     */
+    private void clearShopCache(Integer shopId) {
+        RedisClient.delKey(CacheKeys.SHOP_CACHE_KEY + shopId);
     }
 }

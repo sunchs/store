@@ -4,7 +4,9 @@ import com.sunchs.store.framework.bean.RequestData;
 import com.sunchs.store.framework.bean.ResultData;
 import com.sunchs.store.framework.controller.BaseController;
 import com.sunchs.store.shop.bean.ShopParam;
+import com.sunchs.store.shop.bean.ShopTypeParam;
 import com.sunchs.store.shop.service.impl.ShopService;
+import com.sunchs.store.shop.service.impl.ShopTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,9 +19,11 @@ public class ShopController extends BaseController {
 
     @Autowired
     private ShopService shopService;
+    @Autowired
+    private ShopTypeService shopTypeService;
 
     /**
-     * 医院信息 添加、编辑
+     * 商品信息 添加、编辑
      */
     @PostMapping("/save")
     public ResultData save(@RequestBody RequestData data) {
@@ -37,6 +41,28 @@ public class ShopController extends BaseController {
         Integer shopId = data.getInt("shopId");
         Integer status = data.getInt("status");
         shopService.updateStatus(shopId, status);
+        return success();
+    }
+
+    /**
+     * 商品分类信息 添加、编辑
+     */
+    @PostMapping("/saveType")
+    public ResultData saveType(@RequestBody RequestData data) {
+        ShopTypeParam param = data.toObject(ShopTypeParam.class);
+        shopTypeService.save(param);
+        return success();
+    }
+
+    /**
+     * 修改商品状态
+     * 0、停售；1、开售；2、删除
+     */
+    @PostMapping("/updateTypeStatus")
+    public ResultData updateTypeStatus(@RequestBody RequestData data) {
+        Integer typeId = data.getInt("typeId");
+        Integer status = data.getInt("status");
+        shopTypeService.updateStatus(typeId, status);
         return success();
     }
 }
