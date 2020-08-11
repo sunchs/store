@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.9.RELEASE</version>
+    </parent>
+
+    <groupId>com.sunchs.store</groupId>
+    <artifactId>store</artifactId>
+    <version>0.0.1</version>
+    <name>store</name>
+    <packaging>pom</packaging>
+    <description>store 1.0</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <global.version>5.0</global.version>
+    </properties>
+
+    <modules>
+        <module>framework</module>
+        <module>db</module>
+        <module>registry</module>
+        <module>gateway</module>
+        <module>sale-service</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <version>1.4.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Edgware.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.sunchs.store</groupId>
+                <artifactId>framework</artifactId>
+                <version>0.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sunchs.store</groupId>
+                <artifactId>db</artifactId>
+                <version>0.0.1</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+    environment {
+        module = "registry"
+        tag = "v1.0"
+        portBind = "-p 6006:6006"
+    }
+    stages {
+        stage('Build') {
+            steps {
+                dir("${module}") {
+                    sh "mvn -Dmaven.test.failure.ignore clean install"
+                }
+            }
+        }
+        stage('Image') {
+            steps {
+                sh "docker build -t ${module}:${tag} -f ${module}/deploy/Dockerfile ."
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh "docker rm -f ${module}-${tag}"
+                sh "docker run -dit ${portBind} --name ${module}-${tag} ${module}:${tag}"
+            }
+        }
+    }
+    post {
+        success {
+            script {
+                echo "构建成功"
+            }
+        }
+        failure {
+            script {
+                echo "构建失败"
+            }
+        }
+    }
+}
