@@ -1,6 +1,6 @@
 package com.sunchs.store.db.business.mapper;
 
-import com.sunchs.store.db.business.entity.ShopImg;
+import com.sunchs.store.db.business.entity.ShopImage;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @author king
  * @since 2020-08-11
  */
-public interface ShopImgMapper extends BaseMapper<ShopImg> {
+public interface ShopImageMapper extends BaseMapper<ShopImage> {
 
 }

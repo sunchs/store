@@ -1,6 +1,6 @@
 package com.sunchs.store.db.business.service;
 
-import com.sunchs.store.db.business.entity.ShopImg;
+import com.sunchs.store.db.business.entity.ShopImage;
 import com.baomidou.mybatisplus.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.service.IService;
  * @author king
  * @since 2020-08-11
  */
-public interface IShopImgService extends IService<ShopImg> {
+public interface IShopImageService extends IService<ShopImage> {
 
 }
