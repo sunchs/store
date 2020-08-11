@@ -1,8 +1,8 @@
 package com.sunchs.store.sale.aop;
 
-import com.sunchs.store.shop.framework.request.PostServletRequest;
-import com.sunchs.store.shop.framework.util.StreamUtil;
-import com.sunchs.store.shop.framework.util.UserThreadUtil;
+import com.sunchs.store.framework.request.PostServletRequest;
+import com.sunchs.store.framework.util.StreamUtil;
+import com.sunchs.store.framework.util.UserThreadUtil;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;

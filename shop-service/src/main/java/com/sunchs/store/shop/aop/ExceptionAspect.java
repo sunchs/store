@@ -1,6 +1,6 @@
 package com.sunchs.store.shop.aop;
 
-import com.sunchs.store.shop.framework.bean.ResultData;
+import com.sunchs.store.framework.bean.ResultData;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
