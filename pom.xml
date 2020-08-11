@@ -27,9 +27,9 @@
         <module>db</module>
         <module>registry</module>
         <module>gateway</module>
-        <module>sale-service</module>
         <module>shop-service</module>
         <module>order-service</module>
+        <module>sale-service</module>
     </modules>
 
     <dependencies>
