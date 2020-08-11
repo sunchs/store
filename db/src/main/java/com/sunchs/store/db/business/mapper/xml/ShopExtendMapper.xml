@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunchs.store.db.business.mapper.ShopExtendMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.sunchs.store.db.business.entity.ShopExtend">
+        <id column="ext_id" property="extId" />
+        <result column="shop_id" property="shopId" />
+        <result column="color_id" property="colorId" />
+        <result column="size_id" property="sizeId" />
+        <result column="market_price" property="marketPrice" />
+        <result column="price" property="price" />
+        <result column="weight" property="weight" />
+        <result column="stock" property="stock" />
+        <result column="stock_warning" property="stockWarning" />
+    </resultMap>
+
+</mapper>

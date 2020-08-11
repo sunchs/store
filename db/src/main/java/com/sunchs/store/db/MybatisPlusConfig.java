@@ -1,4 +1,4 @@
-package com.sunchs.store.shop.db;
+package com.sunchs.store.db;
 
 import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
