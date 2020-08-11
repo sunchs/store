@@ -8,6 +8,8 @@ import com.sunchs.store.db.business.entity.ShopImage;
 import com.sunchs.store.db.business.service.impl.ShopExtendServiceImpl;
 import com.sunchs.store.db.business.service.impl.ShopImageServiceImpl;
 import com.sunchs.store.db.business.service.impl.ShopServiceImpl;
+import com.sunchs.store.framework.constants.CacheKeys;
+import com.sunchs.store.framework.util.RedisClient;
 import com.sunchs.store.shop.bean.ShopExtendParam;
 import com.sunchs.store.shop.bean.ShopImageParam;
 import com.sunchs.store.shop.bean.ShopParam;
@@ -30,18 +32,37 @@ public class ShopService implements IShopService {
 
     @Override
     public void save(ShopParam param) {
-        Shop data = new Shop();
-        data.setShopId(param.getShopId());
-        data.setTypeId(param.getTypeId());
-        data.setTitle(param.getTitle());
-        data.setShopSn(param.getShopSn());
-        data.setStatus(param.getStatus());
-        data.setContent(param.getContent());
-        if (shopDBService.insertOrUpdate(data)) {
-            // 保存商品扩展信息
-            saveShopExtend(param, data.getShopId());
-            // 保存图片信息
-            saveShopImage(param, data.getShopId());
+        try {
+            Shop data = new Shop();
+            data.setShopId(param.getShopId());
+            data.setTypeId(param.getTypeId());
+            data.setTitle(param.getTitle());
+            data.setShopSn(param.getShopSn());
+            data.setStatus(param.getStatus());
+            data.setContent(param.getContent());
+            if (shopDBService.insertOrUpdate(data)) {
+                // 保存商品扩展信息
+                saveShopExtend(param, data.getShopId());
+                // 保存图片信息
+                saveShopImage(param, data.getShopId());
+            }
+        } catch (Exception e) {
+            // 异常记录收集
+        }
+    }
+
+    @Override
+    public void updateStatus(Integer shopId, Integer status) {
+        try {
+            // 更新状态
+            Shop data = new Shop();
+            data.setShopId(shopId);
+            data.setStatus(status);
+            shopDBService.updateById(data);
+            // 清除缓存
+            RedisClient.delKey(CacheKeys.SHOP_CACHE_KEY + shopId);
+        } catch (Exception e) {
+            // 异常记录收集
         }
     }
 
@@ -49,27 +70,31 @@ public class ShopService implements IShopService {
      * 保存商品扩展信息
      */
     private void saveShopExtend(ShopParam param, Integer shopId) {
-        // 清理历史数据
-        if (param.getShopId() > 0) {
-            Wrapper<ShopExtend> wrapper = new EntityWrapper<ShopExtend>()
-                    .eq(ShopExtend.SHOP_ID, shopId);
-            shopExtendService.delete(wrapper);
-        }
-        // 存储扩展信息
-        List<ShopExtendParam> list = param.getExtendList();
-        if (CollectionUtils.isNotEmpty(list)) {
-            for (ShopExtendParam ext : list) {
-                ShopExtend data = new ShopExtend();
-                data.setShopId(shopId);
-                data.setColorId(ext.getExtId());
-                data.setSizeId(ext.getSizeId());
-                data.setMarketPrice(ext.getMarketPrice());
-                data.setPrice(ext.getPrice());
-                data.setWeight(ext.getWeight());
-                data.setStock(ext.getStock());
-                data.setStockWarning(ext.getStockWarning());
-                shopExtendService.insert(data);
+        try {
+            // 清理历史数据
+            if (param.getShopId() > 0) {
+                Wrapper<ShopExtend> wrapper = new EntityWrapper<ShopExtend>()
+                        .eq(ShopExtend.SHOP_ID, shopId);
+                shopExtendService.delete(wrapper);
             }
+            // 存储扩展信息
+            List<ShopExtendParam> list = param.getExtendList();
+            if (CollectionUtils.isNotEmpty(list)) {
+                for (ShopExtendParam ext : list) {
+                    ShopExtend data = new ShopExtend();
+                    data.setShopId(shopId);
+                    data.setColorId(ext.getExtId());
+                    data.setSizeId(ext.getSizeId());
+                    data.setMarketPrice(ext.getMarketPrice());
+                    data.setPrice(ext.getPrice());
+                    data.setWeight(ext.getWeight());
+                    data.setStock(ext.getStock());
+                    data.setStockWarning(ext.getStockWarning());
+                    shopExtendService.insert(data);
+                }
+            }
+        } catch (Exception e) {
+            // 异常记录收集
         }
     }
 
@@ -77,26 +102,30 @@ public class ShopService implements IShopService {
      * 保存图片信息
      */
     private void saveShopImage(ShopParam param, Integer shopId) {
-        // 清理历史数据
-        if (param.getShopId() > 0) {
-            Wrapper<ShopImage> wrapper = new EntityWrapper<ShopImage>()
-                    .eq(ShopImage.SHOP_ID, shopId);
-            shopImageService.delete(wrapper);
-        }
-        // 存储图片信息
-        List<ShopImageParam> list = param.getImageList();
-        if (CollectionUtils.isNotEmpty(list)) {
-            for (ShopImageParam img : list) {
-                ShopImage data = new ShopImage();
-                data.setShopId(shopId);
-                data.setType(img.getType());
-                data.setPath(img.getPath());
-                // 暂时不做宽度高度计算
-                data.setWidth(0);
-                data.setHeight(0);
-                data.setSort(img.getSort());
-                shopImageService.insert(data);
+        try {
+            // 清理历史数据
+            if (param.getShopId() > 0) {
+                Wrapper<ShopImage> wrapper = new EntityWrapper<ShopImage>()
+                        .eq(ShopImage.SHOP_ID, shopId);
+                shopImageService.delete(wrapper);
             }
+            // 存储图片信息
+            List<ShopImageParam> list = param.getImageList();
+            if (CollectionUtils.isNotEmpty(list)) {
+                for (ShopImageParam img : list) {
+                    ShopImage data = new ShopImage();
+                    data.setShopId(shopId);
+                    data.setType(img.getType());
+                    data.setPath(img.getPath());
+                    // 暂时不做宽度高度计算
+                    data.setWidth(0);
+                    data.setHeight(0);
+                    data.setSort(img.getSort());
+                    shopImageService.insert(data);
+                }
+            }
+        } catch (Exception e) {
+            // 异常记录收集
         }
     }
 }

@@ -9,4 +9,9 @@ public interface IShopService {
      */
     void save(ShopParam param);
 
+    /**
+     * 修改商品状态
+     * 0、停售；1、开售；2、删除
+     */
+    void updateStatus(Integer shopId, Integer status);
 }

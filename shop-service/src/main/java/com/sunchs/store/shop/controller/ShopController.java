@@ -27,4 +27,16 @@ public class ShopController extends BaseController {
         shopService.save(param);
         return success();
     }
+
+    /**
+     * 修改商品状态
+     * 0、停售；1、开售；2、删除
+     */
+    @PostMapping("/updateStatus")
+    public ResultData updateStatus(@RequestBody RequestData data) {
+        Integer shopId = data.getInt("shopId");
+        Integer status = data.getInt("status");
+        shopService.updateStatus(shopId, status);
+        return success();
+    }
 }

@@ -4,7 +4,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
-public class RedisUtil {
+public class RedisClient {
 
     private static JedisPool pool;
 
@@ -88,6 +88,18 @@ public class RedisUtil {
     }
 
     public static void remove(String key) {
+        Jedis jedis = getPool().getResource();
+        try {
+            jedis.del(key);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Redis异常");
+        } finally {
+            closeResource(jedis);
+        }
+    }
+
+    public static void delKey(String key) {
         Jedis jedis = getPool().getResource();
         try {
             jedis.del(key);
