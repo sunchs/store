@@ -29,7 +29,7 @@ public class ShopParam extends PagingParam {
     /**
      * 商品状态，0、停售；1、开售；2、删除
      */
-    private int status;
+    private Integer status;
 
     /**
      * 详细内容
@@ -79,11 +79,11 @@ public class ShopParam extends PagingParam {
         this.shopSn = shopSn;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

@@ -23,6 +23,15 @@ public class ShopController extends BaseController {
     private ShopTypeService shopTypeService;
 
     /**
+     * 商品分页列表
+     */
+    @PostMapping("/getPageList")
+    public ResultData getPageList(@RequestBody RequestData data) {
+        ShopParam param = data.toObject(ShopParam.class);
+        return success(shopService.getPageList(param));
+    }
+
+    /**
      * 商品信息 添加、编辑
      */
     @PostMapping("/save")

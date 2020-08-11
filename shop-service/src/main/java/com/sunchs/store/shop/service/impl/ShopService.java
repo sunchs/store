@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ShopService implements IShopService {
@@ -40,7 +41,11 @@ public class ShopService implements IShopService {
     public PagingList<ShopVO> getPageList(ShopParam param) {
         Wrapper<Shop> wrapper = new EntityWrapper<>();
         // 按商品状态
-        wrapper.eq(Shop.STATUS, ShopStatusEnum.ENABLE.value);
+        if (Objects.nonNull(param.getStatus())) {
+            wrapper.eq(Shop.STATUS, param.getStatus());
+        } else {
+            wrapper.eq(Shop.STATUS, ShopStatusEnum.ENABLE.value);
+        }
         // 按商品分类
         if (param.getTypeId() > 0) {
             wrapper.eq(Shop.TYPE_ID, param.getTypeId());
