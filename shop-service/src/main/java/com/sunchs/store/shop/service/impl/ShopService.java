@@ -166,9 +166,9 @@ public class ShopService implements IShopService {
     /**
      * 格式化数据
      */
-    private List<ShopVO> parseData(List<Shop> shop) {
-        List<ShopVO> list = new ArrayList<>(shop.size());
-        shop.forEach(s -> {
+    private List<ShopVO> parseData(List<Shop> shopList) {
+        List<ShopVO> list = new ArrayList<>(shopList.size());
+        shopList.forEach(s -> {
             ShopVO vo = new ShopVO();
             vo.setShopId(s.getShopId());
             vo.setTypeId(s.getTypeId());

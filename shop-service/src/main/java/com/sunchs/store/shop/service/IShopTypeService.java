@@ -1,9 +1,16 @@
 package com.sunchs.store.shop.service;
 
 import com.sunchs.store.shop.bean.ShopTypeParam;
+import com.sunchs.store.shop.bean.ShopTypeVO;
+
+import java.util.List;
 
 public interface IShopTypeService {
 
+    /**
+     * 获取分类列表
+     */
+    List<ShopTypeVO> getTypeList(ShopTypeParam param);
 
 
     /**

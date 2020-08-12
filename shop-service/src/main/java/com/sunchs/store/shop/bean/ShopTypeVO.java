@@ -1,6 +1,6 @@
 package com.sunchs.store.shop.bean;
 
-public class ShopTypeParam {
+public class ShopTypeVO {
 
     /**
      * 分类ID
@@ -16,16 +16,6 @@ public class ShopTypeParam {
      * 分类标题
      */
     private String title;
-
-    /**
-     * 分类状态，0、停用；1、启用；2、删除
-     */
-    private int status;
-
-    /**
-     * 排序
-     */
-    private int sort;
 
     public int getTypeId() {
         return typeId;
@@ -49,21 +39,5 @@ public class ShopTypeParam {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public int getSort() {
-        return sort;
-    }
-
-    public void setSort(int sort) {
-        this.sort = sort;
     }
 }

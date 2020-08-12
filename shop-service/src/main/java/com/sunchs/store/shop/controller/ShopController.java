@@ -54,6 +54,15 @@ public class ShopController extends BaseController {
     }
 
     /**
+     * 商品分页列表
+     */
+    @PostMapping("/getTypeList")
+    public ResultData getTypeList(@RequestBody RequestData data) {
+        ShopTypeParam param = data.toObject(ShopTypeParam.class);
+        return success(shopTypeService.getTypeList(param));
+    }
+
+    /**
      * 商品分类信息 添加、编辑
      */
     @PostMapping("/saveType")
