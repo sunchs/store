@@ -10,11 +10,6 @@ public class ShopExtendParam {
     private int extId;
 
     /**
-     * 商品ID
-     */
-    private int shopId;
-
-    /**
      * 颜色ID
      */
     private int colorId;
@@ -55,14 +50,6 @@ public class ShopExtendParam {
 
     public void setExtId(int extId) {
         this.extId = extId;
-    }
-
-    public int getShopId() {
-        return shopId;
-    }
-
-    public void setShopId(int shopId) {
-        this.shopId = shopId;
     }
 
     public int getColorId() {

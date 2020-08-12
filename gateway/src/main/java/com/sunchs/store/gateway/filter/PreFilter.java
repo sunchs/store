@@ -94,16 +94,17 @@ public class PreFilter extends ZuulFilter {
         /**
          * 检查 Token
          */
-        if (StringUtil.isEmpty(data.getToken())) {
-            rejectRequest(ResultData.getFailure("基本参数:[ Token 不能为空 ]"));
-            return null;
-        } else {
-            boolean exists = RedisClient.exists(CacheKeys.USER_LOGIN + data.getToken());
-            if ( ! exists) {
-                rejectRequest(ResultData.getLoginFailure());
-                return null;
-            }
-        }
+        // TODO::毕业设计，不做登录控制
+//        if (StringUtil.isEmpty(data.getToken())) {
+//            rejectRequest(ResultData.getFailure("基本参数:[ Token 不能为空 ]"));
+//            return null;
+//        } else {
+//            boolean exists = RedisClient.exists(CacheKeys.USER_LOGIN + data.getToken());
+//            if ( ! exists) {
+//                rejectRequest(ResultData.getLoginFailure());
+//                return null;
+//            }
+//        }
 
         return null;
     }

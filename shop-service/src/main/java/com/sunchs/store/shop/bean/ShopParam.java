@@ -1,8 +1,10 @@
 package com.sunchs.store.shop.bean;
 
 import com.sunchs.store.framework.bean.PagingParam;
+import com.sunchs.store.shop.exception.ShopException;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ShopParam extends PagingParam {
 
@@ -46,6 +48,16 @@ public class ShopParam extends PagingParam {
      */
     List<ShopImageParam> imageList;
 
+    public void filter() {
+        if (typeId == 0) {
+            throw new ShopException("商品分类不能为空！");
+        }
+        if (Objects.isNull(title) || title.length() == 0) {
+            throw new ShopException("商品标题不能为空！");
+        } else if (title.length() > 100) {
+            throw new ShopException("商品标题不能超过100个字符！");
+        }
+    }
 
     public int getShopId() {
         return shopId;

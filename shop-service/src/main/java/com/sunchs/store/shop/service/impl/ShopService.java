@@ -12,6 +12,7 @@ import com.sunchs.store.db.business.service.impl.ShopServiceImpl;
 import com.sunchs.store.framework.bean.PagingList;
 import com.sunchs.store.framework.constants.CacheKeys;
 import com.sunchs.store.framework.enums.ShopStatusEnum;
+import com.sunchs.store.framework.util.Logger;
 import com.sunchs.store.framework.util.PagingUtil;
 import com.sunchs.store.framework.util.RedisClient;
 import com.sunchs.store.shop.bean.ShopExtendParam;
@@ -57,6 +58,7 @@ public class ShopService implements IShopService {
 
     @Override
     public void save(ShopParam param) {
+        param.filter();
         try {
             Shop data = new Shop();
             data.setShopId(param.getShopId());
@@ -75,6 +77,7 @@ public class ShopService implements IShopService {
             }
         } catch (Exception e) {
             // 异常记录收集
+            Logger.error("保存产品异常，参数["+param+"]", e);
         }
     }
 
