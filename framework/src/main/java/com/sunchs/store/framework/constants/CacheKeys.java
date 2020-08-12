@@ -17,4 +17,14 @@ public class CacheKeys {
      */
     public static final String SHOP_TYPE_CACHE_KEY = "shop_type_cache_key_";
 
+    /**
+     * 商品图片信息
+     */
+    public static final String SHOP_IMAGE_CACHE_KEY = "shop_image_cache_key_";
+
+    /**
+     * 商品扩展信息
+     */
+    public static final String SHOP_EXTEND_CACHE_KEY = "shop_extend_cache_key_";
+
 }

@@ -4,6 +4,9 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RedisClient {
 
     private static JedisPool pool;
@@ -103,6 +106,35 @@ public class RedisClient {
         Jedis jedis = getPool().getResource();
         try {
             jedis.del(key);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Redis异常");
+        } finally {
+            closeResource(jedis);
+        }
+    }
+
+    public static <T> List<T> getListValue(String key, Class<T> clazz) {
+        Jedis jedis = getPool().getResource();
+        try {
+            List<String> redisList = jedis.lrange(key, 0, -1);
+            List<T> list = new ArrayList<>(redisList.size());
+            for (String s : redisList) {
+                list.add(JsonUtil.toObject(s, clazz));
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Redis异常");
+        } finally {
+            closeResource(jedis);
+        }
+    }
+
+    public static void setListValue(String key, String value) {
+        Jedis jedis = getPool().getResource();
+        try {
+            jedis.rpush(key, value);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Redis异常");

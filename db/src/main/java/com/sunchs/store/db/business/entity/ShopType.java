@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 产品分类表
+ * 商品分类表
  * </p>
  *
  * @author king

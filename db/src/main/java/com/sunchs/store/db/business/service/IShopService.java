@@ -7,7 +7,7 @@ import com.sunchs.store.db.business.entity.Shop;
 
 /**
  * <p>
- * 产品表 服务类
+ * 商品表 服务类
  * </p>
  *
  * @author king

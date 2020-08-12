@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.sunchs.store.db.business.entity.ShopType;
 import com.sunchs.store.db.business.service.impl.ShopTypeServiceImpl;
 import com.sunchs.store.framework.constants.CacheKeys;
-import com.sunchs.store.framework.util.Logger;
+import com.sunchs.store.framework.data.Logger;
 import com.sunchs.store.framework.util.RedisClient;
 import com.sunchs.store.shop.bean.ShopTypeParam;
 import com.sunchs.store.shop.bean.ShopTypeVO;
@@ -51,7 +51,7 @@ public class ShopTypeService implements IShopTypeService {
                 clearShopTypeCache(data.getTypeId());
             }
         } catch (Exception e) {
-            Logger.error("保存产品分类异常，参数["+param+"]", e);
+            Logger.error("保存商品分类异常，参数["+param+"]", e);
         }
     }
 
@@ -66,7 +66,7 @@ public class ShopTypeService implements IShopTypeService {
             // 清除缓存
             clearShopTypeCache(typeId);
         } catch (Exception e) {
-            Logger.error("修改产品状态异常，参数[typeId:" + typeId + "，status:" + status + "]", e);
+            Logger.error("修改商品状态异常，参数[typeId:" + typeId + "，status:" + status + "]", e);
         }
     }
 

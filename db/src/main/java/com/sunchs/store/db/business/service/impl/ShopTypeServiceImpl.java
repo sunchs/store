@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * 产品分类表 服务实现类
+ * 商品分类表 服务实现类
  * </p>
  *
  * @author king

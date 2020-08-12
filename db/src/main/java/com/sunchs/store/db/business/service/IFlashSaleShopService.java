@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.service.IService;
 
 /**
  * <p>
- * 秒杀活动产品表 服务类
+ * 秒杀活动商品表 服务类
  * </p>
  *
  * @author king

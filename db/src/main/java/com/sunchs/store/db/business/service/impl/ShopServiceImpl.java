@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * <p>
- * 产品表 服务实现类
+ * 商品表 服务实现类
  * </p>
  *
  * @author king

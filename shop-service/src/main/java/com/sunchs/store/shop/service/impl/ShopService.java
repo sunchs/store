@@ -11,14 +11,12 @@ import com.sunchs.store.db.business.service.impl.ShopImageServiceImpl;
 import com.sunchs.store.db.business.service.impl.ShopServiceImpl;
 import com.sunchs.store.framework.bean.PagingList;
 import com.sunchs.store.framework.constants.CacheKeys;
+import com.sunchs.store.framework.data.DataReader;
 import com.sunchs.store.framework.enums.ShopStatusEnum;
-import com.sunchs.store.framework.util.Logger;
+import com.sunchs.store.framework.data.Logger;
 import com.sunchs.store.framework.util.PagingUtil;
 import com.sunchs.store.framework.util.RedisClient;
-import com.sunchs.store.shop.bean.ShopExtendParam;
-import com.sunchs.store.shop.bean.ShopImageParam;
-import com.sunchs.store.shop.bean.ShopParam;
-import com.sunchs.store.shop.bean.ShopVO;
+import com.sunchs.store.shop.bean.*;
 import com.sunchs.store.shop.service.IShopService;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +76,7 @@ public class ShopService implements IShopService {
                 clearShopCache(data.getShopId());
             }
         } catch (Exception e) {
-            Logger.error("保存产品异常，参数["+param+"]", e);
+            Logger.error("保存商品异常，参数["+param+"]", e);
         }
     }
 
@@ -93,7 +91,7 @@ public class ShopService implements IShopService {
             // 清除缓存
             clearShopCache(shopId);
         } catch (Exception e) {
-            Logger.error("修改产品状态异常，参数[shopId:" + shopId + "，status:" + status + "]", e);
+            Logger.error("修改商品状态异常，参数[shopId:" + shopId + "，status:" + status + "]", e);
         }
     }
 
@@ -179,8 +177,53 @@ public class ShopService implements IShopService {
             vo.setTitle(s.getTitle());
             vo.setShopSn(s.getShopSn());
             vo.setContent(s.getContent());
+            // 扩展信息
+            List<ShopExtendVO> extendlist = new ArrayList<>();
+            getShopExtendList(s.getShopId()).forEach(ext -> {
+                ShopExtendVO extendVO = new ShopExtendVO();
+                extendVO.setExtId(ext.getExtId());
+                extendVO.setColorId(ext.getExtId());
+                extendVO.setSizeId(ext.getSizeId());
+                extendVO.setMarketPrice(ext.getMarketPrice());
+                extendVO.setPrice(ext.getPrice());
+                extendVO.setWeight(ext.getWeight());
+                extendVO.setStock(ext.getStock());
+                extendlist.add(extendVO);
+            });
+            vo.setExtendList(extendlist);
+            // 图片信息
+            List<ShopImageVO> imagelist = new ArrayList<>();
+            getShopImageList(s.getShopId()).forEach(img -> {
+                ShopImageVO imageVO = new ShopImageVO();
+                imageVO.setType(img.getType());
+                imageVO.setPath(img.getPath());
+                imagelist.add(imageVO);
+            });
+            vo.setImageList(imagelist);
             list.add(vo);
         });
         return list;
+    }
+
+    /**
+     * 获取商品扩展数据
+     */
+    public List<ShopExtend> getShopExtendList(Integer shopId) {
+        return DataReader.getListData(CacheKeys.SHOP_EXTEND_CACHE_KEY + shopId, ShopExtend.class, () -> {
+            Wrapper<ShopExtend> wrapper = new EntityWrapper<ShopExtend>()
+                    .eq(ShopExtend.SHOP_ID, shopId);
+            return shopExtendService.selectList(wrapper);
+        });
+    }
+
+    /**
+     * 获取商品图片数据
+     */
+    public List<ShopImage> getShopImageList(Integer shopId) {
+        return DataReader.getListData(CacheKeys.SHOP_IMAGE_CACHE_KEY + shopId, ShopImage.class, () -> {
+            Wrapper<ShopImage> wrapper = new EntityWrapper<ShopImage>()
+                    .eq(ShopImage.SHOP_ID, shopId);
+            return shopImageService.selectList(wrapper);
+        });
     }
 }

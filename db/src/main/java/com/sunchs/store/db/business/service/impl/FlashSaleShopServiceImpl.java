@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * 秒杀活动产品表 服务实现类
+ * 秒杀活动商品表 服务实现类
  * </p>
  *
  * @author king

@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.service.IService;
 
 /**
  * <p>
- * 产品图片表 服务类
+ * 商品图片表 服务类
  * </p>
  *
  * @author king

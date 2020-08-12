@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 产品扩展表
+ * 商品扩展表
  * </p>
  *
  * @author king

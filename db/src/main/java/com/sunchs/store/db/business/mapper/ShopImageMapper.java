@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
  * <p>
- * 产品图片表 Mapper 接口
+ * 商品图片表 Mapper 接口
  * </p>
  *
  * @author king

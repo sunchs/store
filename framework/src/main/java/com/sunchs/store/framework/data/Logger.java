@@ -1,4 +1,4 @@
-package com.sunchs.store.framework.util;
+package com.sunchs.store.framework.data;
 
 public class Logger {
 
