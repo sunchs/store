@@ -1,5 +1,9 @@
 package com.sunchs.store.shop.bean;
 
+import com.sunchs.store.shop.exception.ShopException;
+
+import java.util.Objects;
+
 public class ShopTypeParam {
 
     /**
@@ -26,6 +30,14 @@ public class ShopTypeParam {
      * 排序
      */
     private int sort;
+
+    public void filter() {
+        if (Objects.isNull(title) || title.length() == 0) {
+            throw new ShopException("商品分类标题不能为空！");
+        } else if (title.length() > 30) {
+            throw new ShopException("商品分类标题不能超过30个字符！");
+        }
+    }
 
     public int getTypeId() {
         return typeId;

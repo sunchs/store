@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.sunchs.store.db.business.entity.ShopType;
 import com.sunchs.store.db.business.service.impl.ShopTypeServiceImpl;
 import com.sunchs.store.framework.constants.CacheKeys;
+import com.sunchs.store.framework.util.Logger;
 import com.sunchs.store.framework.util.RedisClient;
 import com.sunchs.store.shop.bean.ShopTypeParam;
 import com.sunchs.store.shop.bean.ShopTypeVO;
@@ -34,6 +35,8 @@ public class ShopTypeService implements IShopTypeService {
     @Override
     public void save(ShopTypeParam param) {
         try {
+            // 参数检查
+            param.filter();
             ShopType data = new ShopType();
             data.setTypeId(param.getTypeId());
             data.setPid(param.getParentId());
@@ -45,7 +48,7 @@ public class ShopTypeService implements IShopTypeService {
                 clearShopTypeCache(data.getTypeId());
             }
         } catch (Exception e) {
-            // 异常记录收集
+            Logger.error("保存产品分类异常，参数["+param+"]", e);
         }
     }
 

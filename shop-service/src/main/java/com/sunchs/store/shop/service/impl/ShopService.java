@@ -58,8 +58,9 @@ public class ShopService implements IShopService {
 
     @Override
     public void save(ShopParam param) {
-        param.filter();
         try {
+            // 参数检查
+            param.filter();
             Shop data = new Shop();
             data.setShopId(param.getShopId());
             data.setTypeId(param.getTypeId());
@@ -76,7 +77,6 @@ public class ShopService implements IShopService {
                 clearShopCache(data.getShopId());
             }
         } catch (Exception e) {
-            // 异常记录收集
             Logger.error("保存产品异常，参数["+param+"]", e);
         }
     }
@@ -92,7 +92,7 @@ public class ShopService implements IShopService {
             // 清除缓存
             clearShopCache(shopId);
         } catch (Exception e) {
-            // 异常记录收集
+            Logger.error("修改产品状态异常，参数[shopId:" + shopId + "，status:" + status + "]", e);
         }
     }
 
@@ -124,7 +124,7 @@ public class ShopService implements IShopService {
                 }
             }
         } catch (Exception e) {
-            // 异常记录收集
+            Logger.error("保存商品扩展信息异常，参数["+param+"]", e);
         }
     }
 
@@ -155,7 +155,7 @@ public class ShopService implements IShopService {
                 }
             }
         } catch (Exception e) {
-            // 异常记录收集
+            Logger.error("保存商品图片信息异常，参数["+param+"]", e);
         }
     }
 
