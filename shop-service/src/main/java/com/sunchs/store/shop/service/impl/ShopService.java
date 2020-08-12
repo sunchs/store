@@ -15,7 +15,7 @@ import com.sunchs.store.framework.data.DataReader;
 import com.sunchs.store.framework.enums.ShopStatusEnum;
 import com.sunchs.store.framework.data.Logger;
 import com.sunchs.store.framework.util.PagingUtil;
-import com.sunchs.store.framework.util.RedisClient;
+import com.sunchs.store.framework.data.RedisClient;
 import com.sunchs.store.shop.bean.*;
 import com.sunchs.store.shop.service.IShopService;
 import org.apache.commons.collections.CollectionUtils;

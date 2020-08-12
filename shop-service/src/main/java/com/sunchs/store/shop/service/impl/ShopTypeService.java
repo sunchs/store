@@ -6,7 +6,7 @@ import com.sunchs.store.db.business.entity.ShopType;
 import com.sunchs.store.db.business.service.impl.ShopTypeServiceImpl;
 import com.sunchs.store.framework.constants.CacheKeys;
 import com.sunchs.store.framework.data.Logger;
-import com.sunchs.store.framework.util.RedisClient;
+import com.sunchs.store.framework.data.RedisClient;
 import com.sunchs.store.shop.bean.ShopTypeParam;
 import com.sunchs.store.shop.bean.ShopTypeVO;
 import com.sunchs.store.shop.service.IShopTypeService;

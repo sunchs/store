@@ -3,6 +3,7 @@ package com.sunchs.store.framework.util;
 import com.sunchs.store.framework.bean.RequestData;
 import com.sunchs.store.framework.bean.UserCacheData;
 import com.sunchs.store.framework.constants.CacheKeys;
+import com.sunchs.store.framework.data.RedisClient;
 
 import java.util.Objects;
 

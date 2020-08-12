@@ -1,5 +1,6 @@
-package com.sunchs.store.framework.util;
+package com.sunchs.store.framework.data;
 
+import com.sunchs.store.framework.util.JsonUtil;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -13,7 +14,7 @@ public class RedisClient {
 
     private static void connect() {
         JedisPoolConfig config = new JedisPoolConfig();
-        pool = new JedisPool(config, "47.107.255.115", 6379, 5000, "cccccc");
+        pool = new JedisPool(config, "localhost", 6379, 5000, "");
     }
 
     private static JedisPool getPool() {

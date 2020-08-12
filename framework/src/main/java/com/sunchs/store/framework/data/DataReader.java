@@ -3,7 +3,6 @@ package com.sunchs.store.framework.data;
 import com.sunchs.store.framework.callback.IDataGeter;
 import com.sunchs.store.framework.callback.IListDataGeter;
 import com.sunchs.store.framework.util.JsonUtil;
-import com.sunchs.store.framework.util.RedisClient;
 import org.apache.commons.collections.CollectionUtils;
 
 import java.util.List;
