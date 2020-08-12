@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class ShopTypeService implements IShopTypeService {
@@ -29,7 +31,7 @@ public class ShopTypeService implements IShopTypeService {
             wrapper.eq(ShopType.PID, param.getParentId());
         }
         List<ShopType> shopTypeList = shopTypeDBService.selectList(wrapper);
-        return parseData(shopTypeList);
+        return parseData(shopTypeList, 0);
     }
 
     @Override
@@ -75,13 +77,14 @@ public class ShopTypeService implements IShopTypeService {
         RedisClient.delKey(CacheKeys.SHOP_TYPE_CACHE_KEY + typeId);
     }
 
-    private List<ShopTypeVO> parseData(List<ShopType> ShopTypeList) {
+    private List<ShopTypeVO> parseData(List<ShopType> ShopTypeList, Integer index) {
         List<ShopTypeVO> list = new ArrayList<>(ShopTypeList.size());
-        ShopTypeList.forEach(type -> {
+        List<ShopType> typeList = ShopTypeList.stream().filter(v -> Objects.equals(v.getPid(), index)).collect(Collectors.toList());
+        typeList.forEach(type -> {
             ShopTypeVO vo = new ShopTypeVO();
             vo.setTypeId(type.getTypeId());
-            vo.setParentId(type.getPid());
             vo.setTitle(type.getTitle());
+            vo.setChildren(parseData(ShopTypeList, type.getTypeId()));
             list.add(vo);
         });
         return list;
