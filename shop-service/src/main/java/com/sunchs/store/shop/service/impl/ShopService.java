@@ -61,6 +61,7 @@ public class ShopService implements IShopService {
         try {
             // 参数检查
             param.filter();
+            // 保存信息
             Shop data = new Shop();
             data.setShopId(param.getShopId());
             data.setTypeId(param.getTypeId());

@@ -37,6 +37,7 @@ public class ShopTypeService implements IShopTypeService {
         try {
             // 参数检查
             param.filter();
+            // 保存信息
             ShopType data = new ShopType();
             data.setTypeId(param.getTypeId());
             data.setPid(param.getParentId());
@@ -63,7 +64,7 @@ public class ShopTypeService implements IShopTypeService {
             // 清除缓存
             clearShopTypeCache(typeId);
         } catch (Exception e) {
-            // 异常记录收集
+            Logger.error("修改产品状态异常，参数[typeId:" + typeId + "，status:" + status + "]", e);
         }
     }
 
