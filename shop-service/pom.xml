@@ -47,7 +47,7 @@
     </dependencies>
 
     <build>
-        <finalName>sale-service</finalName>
+        <finalName>shop-service</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

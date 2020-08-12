@@ -6,7 +6,7 @@ import com.sunchs.store.framework.bean.RequestData;
 import com.sunchs.store.framework.bean.ResultData;
 import com.sunchs.store.framework.constants.CacheKeys;
 import com.sunchs.store.framework.util.JsonUtil;
-import com.sunchs.store.framework.util.RedisUtil;
+import com.sunchs.store.framework.util.RedisClient;
 import com.sunchs.store.framework.util.StreamUtil;
 import com.sunchs.store.framework.util.StringUtil;
 import org.springframework.stereotype.Component;
@@ -98,7 +98,7 @@ public class PreFilter extends ZuulFilter {
             rejectRequest(ResultData.getFailure("基本参数:[ Token 不能为空 ]"));
             return null;
         } else {
-            boolean exists = RedisUtil.exists(CacheKeys.USER_LOGIN + data.getToken());
+            boolean exists = RedisClient.exists(CacheKeys.USER_LOGIN + data.getToken());
             if ( ! exists) {
                 rejectRequest(ResultData.getLoginFailure());
                 return null;

@@ -2,12 +2,12 @@ server:
   port: 8001
 spring:
   application:
-    name: receive-service
+    name: shop-service
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password:
-    url: jdbc:mysql://localhost:3306/project??useUnicode=true&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://localhost:3306/store??useUnicode=true&characterEncoding=utf8&useSSL=false
 
 eureka:
   instance:

@@ -13,8 +13,8 @@ public class UserThreadUtil {
     public static void initUser(String user) {
         RequestData data = JsonUtil.toObject(user, RequestData.class);
         if (data != null && StringUtil.isNotEmpty(data.getToken())) {
-            if (RedisUtil.exists(CacheKeys.USER_LOGIN + data.getToken())) {
-                UserCacheData res = RedisUtil.getValue(CacheKeys.USER_LOGIN + data.getToken(), UserCacheData.class);
+            if (RedisClient.exists(CacheKeys.USER_LOGIN + data.getToken())) {
+                UserCacheData res = RedisClient.getValue(CacheKeys.USER_LOGIN + data.getToken(), UserCacheData.class);
                 System.out.println(res);
                 userHandle.set(res);
             }
