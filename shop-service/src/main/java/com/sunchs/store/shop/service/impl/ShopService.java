@@ -12,14 +12,16 @@ import com.sunchs.store.db.business.service.impl.ShopServiceImpl;
 import com.sunchs.store.framework.bean.PagingList;
 import com.sunchs.store.framework.constants.CacheKeys;
 import com.sunchs.store.framework.data.DataReader;
-import com.sunchs.store.framework.enums.ShopStatusEnum;
 import com.sunchs.store.framework.data.Logger;
-import com.sunchs.store.framework.util.PagingUtil;
 import com.sunchs.store.framework.data.RedisClient;
-import com.sunchs.store.shop.bean.*;
+import com.sunchs.store.framework.enums.ShopStatusEnum;
+import com.sunchs.store.framework.util.PagingUtil;
+import com.sunchs.store.shop.bean.ShopImageParam;
+import com.sunchs.store.shop.bean.ShopImageVO;
+import com.sunchs.store.shop.bean.ShopParam;
+import com.sunchs.store.shop.bean.ShopVO;
 import com.sunchs.store.shop.service.IShopService;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -151,6 +153,8 @@ public class ShopService implements IShopService {
      */
     private void clearShopCache(Integer shopId) {
         RedisClient.delKey(CacheKeys.SHOP_CACHE_KEY + shopId);
+        RedisClient.delKey(CacheKeys.SHOP_CONTENT_CACHE_KEY + shopId);
+        RedisClient.delKey(CacheKeys.SHOP_IMAGE_CACHE_KEY + shopId);
     }
 
     /**
