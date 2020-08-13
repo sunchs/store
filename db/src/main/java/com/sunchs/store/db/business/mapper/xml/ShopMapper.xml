@@ -9,7 +9,11 @@
         <result column="title" property="title" />
         <result column="shop_sn" property="shopSn" />
         <result column="status" property="status" />
-        <result column="content" property="content" />
+        <result column="market_price" property="marketPrice" />
+        <result column="price" property="price" />
+        <result column="weight" property="weight" />
+        <result column="stock" property="stock" />
+        <result column="stock_warning" property="stockWarning" />
     </resultMap>
 
 </mapper>

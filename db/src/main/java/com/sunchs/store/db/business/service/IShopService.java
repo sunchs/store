@@ -11,7 +11,7 @@ import com.sunchs.store.db.business.entity.Shop;
  * </p>
  *
  * @author king
- * @since 2020-08-11
+ * @since 2020-08-13
  */
 public interface IShopService extends IService<Shop> {
 

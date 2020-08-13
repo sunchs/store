@@ -23,8 +23,17 @@ public class CacheKeys {
     public static final String SHOP_IMAGE_CACHE_KEY = "shop_image_cache_key_";
 
     /**
-     * 商品扩展信息
+     * 商品详细内容
      */
-    public static final String SHOP_EXTEND_CACHE_KEY = "shop_extend_cache_key_";
+    public static final String SHOP_CONTENT_CACHE_KEY = "shop_content_cache_key_";
 
+    /**
+     * 商品库存
+     */
+    public static final String SHOP_STOCK_CACHE_KEY = "shop_stock_cache_key_";
+
+    /**
+     * 商品秒杀时间
+     */
+    public static final String SHOP_FLASH_SALE_TIME = "shop_flash_sale_time:";
 }

@@ -1,6 +1,7 @@
 package com.sunchs.store.db.business.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
+import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
@@ -12,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author king
- * @since 2020-08-11
+ * @since 2020-08-13
  */
 public class Shop extends Model<Shop> {
 
@@ -47,9 +48,31 @@ public class Shop extends Model<Shop> {
     private Integer status;
 
     /**
-     * 详细内容
+     * 市场价格
      */
-    private String content;
+    @TableField("market_price")
+    private BigDecimal marketPrice;
+
+    /**
+     * 出售价格
+     */
+    private BigDecimal price;
+
+    /**
+     * 重量（单位：克）
+     */
+    private Integer weight;
+
+    /**
+     * 库存
+     */
+    private Integer stock;
+
+    /**
+     * 库存警告
+     */
+    @TableField("stock_warning")
+    private Integer stockWarning;
 
     public Integer getShopId() {
         return shopId;
@@ -86,12 +109,40 @@ public class Shop extends Model<Shop> {
     public void setStatus(Integer status) {
         this.status = status;
     }
-    public String getContent() {
-        return content;
+    public BigDecimal getMarketPrice() {
+        return marketPrice;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setMarketPrice(BigDecimal marketPrice) {
+        this.marketPrice = marketPrice;
+    }
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+    public Integer getStockWarning() {
+        return stockWarning;
+    }
+
+    public void setStockWarning(Integer stockWarning) {
+        this.stockWarning = stockWarning;
     }
 
     public static final String SHOP_ID = "shop_id";
@@ -104,7 +155,15 @@ public class Shop extends Model<Shop> {
 
     public static final String STATUS = "status";
 
-    public static final String CONTENT = "content";
+    public static final String MARKET_PRICE = "market_price";
+
+    public static final String PRICE = "price";
+
+    public static final String WEIGHT = "weight";
+
+    public static final String STOCK = "stock";
+
+    public static final String STOCK_WARNING = "stock_warning";
 
     @Override
     protected Serializable pkVal() {
@@ -119,7 +178,11 @@ public class Shop extends Model<Shop> {
         ", title=" + title +
         ", shopSn=" + shopSn +
         ", status=" + status +
-        ", content=" + content +
+        ", marketPrice=" + marketPrice +
+        ", price=" + price +
+        ", weight=" + weight +
+        ", stock=" + stock +
+        ", stockWarning=" + stockWarning +
         "}";
     }
 }

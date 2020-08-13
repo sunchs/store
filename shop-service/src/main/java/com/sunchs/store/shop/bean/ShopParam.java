@@ -34,14 +34,34 @@ public class ShopParam extends PagingParam {
     private Integer status;
 
     /**
+     * 市场价格
+     */
+    private double marketPrice;
+
+    /**
+     * 出售价格
+     */
+    private double price;
+
+    /**
+     * 重量（单位：克）
+     */
+    private int weight;
+
+    /**
+     * 库存
+     */
+    private int stock;
+
+    /**
+     * 库存警告
+     */
+    private int stockWarning;
+
+    /**
      * 详细内容
      */
     private String content;
-
-    /**
-     * 商品扩展信息
-     */
-    List<ShopExtendParam> extendList;
 
     /**
      * 商品图片信息
@@ -99,20 +119,52 @@ public class ShopParam extends PagingParam {
         this.status = status;
     }
 
+    public double getMarketPrice() {
+        return marketPrice;
+    }
+
+    public void setMarketPrice(double marketPrice) {
+        this.marketPrice = marketPrice;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public int getStockWarning() {
+        return stockWarning;
+    }
+
+    public void setStockWarning(int stockWarning) {
+        this.stockWarning = stockWarning;
+    }
+
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public List<ShopExtendParam> getExtendList() {
-        return extendList;
-    }
-
-    public void setExtendList(List<ShopExtendParam> extendList) {
-        this.extendList = extendList;
     }
 
     public List<ShopImageParam> getImageList() {

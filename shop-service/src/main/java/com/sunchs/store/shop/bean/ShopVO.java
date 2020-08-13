@@ -25,14 +25,34 @@ public class ShopVO {
     private String shopSn;
 
     /**
+     * 市场价格
+     */
+    private Double marketPrice;
+
+    /**
+     * 出售价格
+     */
+    private Double price;
+
+    /**
+     * 重量（单位：克）
+     */
+    private Integer weight;
+
+    /**
+     * 库存
+     */
+    private Integer stock;
+
+    /**
+     * 库存警告
+     */
+    private Integer stockWarning;
+
+    /**
      * 详细内容
      */
     private String content;
-
-    /**
-     * 商品扩展信息
-     */
-    List<ShopExtendVO> extendList;
 
     /**
      * 商品图片信息
@@ -71,20 +91,52 @@ public class ShopVO {
         this.shopSn = shopSn;
     }
 
+    public Double getMarketPrice() {
+        return marketPrice;
+    }
+
+    public void setMarketPrice(Double marketPrice) {
+        this.marketPrice = marketPrice;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    public Integer getStockWarning() {
+        return stockWarning;
+    }
+
+    public void setStockWarning(Integer stockWarning) {
+        this.stockWarning = stockWarning;
+    }
+
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public List<ShopExtendVO> getExtendList() {
-        return extendList;
-    }
-
-    public void setExtendList(List<ShopExtendVO> extendList) {
-        this.extendList = extendList;
     }
 
     public List<ShopImageVO> getImageList() {

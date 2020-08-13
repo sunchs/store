@@ -7,6 +7,7 @@ import redis.clients.jedis.JedisPoolConfig;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class RedisClient {
 
@@ -58,6 +59,9 @@ public class RedisClient {
 
     public static <T> T getValue(String key, Class<T> clazz) {
         String value = getValue(key);
+        if (Objects.isNull(value)) {
+            return null;
+        }
         return JsonUtil.toObject(value, clazz);
     }
 
