@@ -10,6 +10,11 @@ public class FlashSaleParam {
     private int saleId;
 
     /**
+     * 商品ID
+     */
+    private int shopId;
+
+    /**
      * 活动标题
      */
     private String title;
@@ -29,16 +34,6 @@ public class FlashSaleParam {
      */
     private int status;
 
-    /**
-     * 扩展ID
-     * 抢购时，必传
-     */
-    private int extId;
-
-    /**
-     * 商品ID
-     */
-    private int shopId;
 
     public int getSaleId() {
         return saleId;
@@ -46,6 +41,14 @@ public class FlashSaleParam {
 
     public void setSaleId(int saleId) {
         this.saleId = saleId;
+    }
+
+    public int getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(int shopId) {
+        this.shopId = shopId;
     }
 
     public String getTitle() {
@@ -78,21 +81,5 @@ public class FlashSaleParam {
 
     public void setStatus(int status) {
         this.status = status;
-    }
-
-    public int getExtId() {
-        return extId;
-    }
-
-    public void setExtId(int extId) {
-        this.extId = extId;
-    }
-
-    public int getShopId() {
-        return shopId;
-    }
-
-    public void setShopId(int shopId) {
-        this.shopId = shopId;
     }
 }

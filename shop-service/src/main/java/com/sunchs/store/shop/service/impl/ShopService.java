@@ -152,9 +152,9 @@ public class ShopService implements IShopService {
      * 清理商品缓存
      */
     private void clearShopCache(Integer shopId) {
-        RedisClient.delKey(CacheKeys.SHOP_CACHE_KEY + shopId);
-        RedisClient.delKey(CacheKeys.SHOP_CONTENT_CACHE_KEY + shopId);
-        RedisClient.delKey(CacheKeys.SHOP_IMAGE_CACHE_KEY + shopId);
+        RedisClient.delKey(CacheKeys.SHOP + shopId);
+        RedisClient.delKey(CacheKeys.SHOP_CONTENT + shopId);
+        RedisClient.delKey(CacheKeys.SHOP_IMAGE + shopId);
     }
 
     /**
@@ -196,7 +196,7 @@ public class ShopService implements IShopService {
      * 获取商品详细内容
      */
     public ShopContent getShopContent(Integer shopId) {
-         return DataReader.getData(CacheKeys.SHOP_CONTENT_CACHE_KEY + shopId, ShopContent.class, () -> {
+         return DataReader.getData(CacheKeys.SHOP_CONTENT + shopId, ShopContent.class, () -> {
             Wrapper<ShopContent> wrapper = new EntityWrapper<ShopContent>()
                     .setSqlSelect(ShopContent.CONTENT)
                     .eq(ShopContent.SHOP_ID, shopId);
@@ -208,7 +208,7 @@ public class ShopService implements IShopService {
      * 获取商品图片数据
      */
     public List<ShopImage> getShopImageList(Integer shopId) {
-        return DataReader.getListData(CacheKeys.SHOP_IMAGE_CACHE_KEY + shopId, ShopImage.class, () -> {
+        return DataReader.getListData(CacheKeys.SHOP_IMAGE + shopId, ShopImage.class, () -> {
             Wrapper<ShopImage> wrapper = new EntityWrapper<ShopImage>()
                     .eq(ShopImage.SHOP_ID, shopId);
             return shopImageService.selectList(wrapper);

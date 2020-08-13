@@ -10,27 +10,27 @@ public class CacheKeys {
     /**
      * 商品基础信息
      */
-    public static final String SHOP_CACHE_KEY = "shop_cache_key_";
+    public static final String SHOP = "shop:";
 
     /**
      * 商品分类信息
      */
-    public static final String SHOP_TYPE_CACHE_KEY = "shop_type_cache_key_";
+    public static final String SHOP_TYPE = "shop_type:";
 
     /**
      * 商品图片信息
      */
-    public static final String SHOP_IMAGE_CACHE_KEY = "shop_image_cache_key_";
+    public static final String SHOP_IMAGE = "shop_image:";
 
     /**
      * 商品详细内容
      */
-    public static final String SHOP_CONTENT_CACHE_KEY = "shop_content_cache_key_";
+    public static final String SHOP_CONTENT = "shop_content:";
 
     /**
      * 商品库存
      */
-    public static final String SHOP_STOCK_CACHE_KEY = "shop_stock_cache_key_";
+    public static final String SHOP_STOCK = "shop_stock:";
 
     /**
      * 商品秒杀时间
