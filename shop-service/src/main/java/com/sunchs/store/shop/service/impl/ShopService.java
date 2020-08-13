@@ -170,7 +170,10 @@ public class ShopService implements IShopService {
             vo.setStock(shop.getStock());
             vo.setStockWarning(shop.getStockWarning());
             // 详细内容
-            vo.setContent(getShopContent(shop.getShopId()));
+            ShopContent shopContent = getShopContent(shop.getShopId());
+            if (Objects.nonNull(shopContent)) {
+                vo.setContent(shopContent.getContent());
+            }
             // 图片信息
             List<ShopImageVO> imagelist = new ArrayList<>();
             getShopImageList(shop.getShopId()).forEach(img -> {
@@ -188,16 +191,12 @@ public class ShopService implements IShopService {
     /**
      * 获取商品详细内容
      */
-    public String getShopContent(Integer shopId) {
-         return DataReader.getData(CacheKeys.SHOP_CONTENT_CACHE_KEY + shopId, String.class, () -> {
+    public ShopContent getShopContent(Integer shopId) {
+         return DataReader.getData(CacheKeys.SHOP_CONTENT_CACHE_KEY + shopId, ShopContent.class, () -> {
             Wrapper<ShopContent> wrapper = new EntityWrapper<ShopContent>()
                     .setSqlSelect(ShopContent.CONTENT)
                     .eq(ShopContent.SHOP_ID, shopId);
-             ShopContent shopContent = shopContentService.selectOne(wrapper);
-             if (Objects.nonNull(shopContent)) {
-                 return shopContent.getContent();
-             }
-             return StringUtils.EMPTY;
+             return shopContentService.selectOne(wrapper);
          });
     }
 
