@@ -41,6 +41,6 @@ public class FlashSaleService implements IFlashSaleService {
      */
     private void updateFlashSaleResponseStatus(Integer status, FlashSaleQueueBean bean) {
         String statusKey = CacheKeys.USER_FLASH_SALE_STATUS + bean.getShopId() + ":" + bean.getUserId();
-        RedisClient.setValue(statusKey, 2 + "");
+        RedisClient.setValue(statusKey, status + "");
     }
 }
