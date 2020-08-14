@@ -10,11 +10,13 @@ import com.sunchs.store.framework.bean.FlashSaleQueueBean;
 import com.sunchs.store.framework.constants.CacheKeys;
 import com.sunchs.store.framework.data.Logger;
 import com.sunchs.store.framework.data.RedisClient;
+import com.sunchs.store.framework.enums.DataStatusEnum;
 import com.sunchs.store.framework.util.FormatUtil;
 import com.sunchs.store.framework.util.JsonUtil;
 import com.sunchs.store.sale.bean.FlashSaleParam;
 import com.sunchs.store.sale.bean.FlashSaleShopParam;
 import com.sunchs.store.sale.service.IFlashSaleService;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class FlashSaleService implements IFlashSaleService {
@@ -77,13 +80,15 @@ public class FlashSaleService implements IFlashSaleService {
      * 检查活动状态
      */
     private boolean isOpenFlashSale(Integer shopId) {
-        FlashSale flashSale = RedisClient.getValue(CacheKeys.SHOP_FLASH_SALE_TIME + shopId, FlashSale.class);
-        if (Objects.isNull(flashSale)) {
+        List<FlashSale> flashSaleList = RedisClient.getListValue(CacheKeys.SHOP_FLASH_SALE_TIME_LIST + shopId, FlashSale.class);
+        if (CollectionUtils.isEmpty(flashSaleList)) {
             return false;
         }
         Date time = new Date(System.currentTimeMillis());
-        if (Objects.equals(flashSale.getStatus(), 1) && time.after(flashSale.getStartTime()) && time.before(flashSale.getEndTime())) {
-            return true;
+        for (FlashSale flashSale : flashSaleList) {
+            if (Objects.equals(flashSale.getStatus(), 1) && time.after(flashSale.getStartTime()) && time.before(flashSale.getEndTime())) {
+                return true;
+            }
         }
         return false;
     }
@@ -114,6 +119,24 @@ public class FlashSaleService implements IFlashSaleService {
             shop.setShopId(shopParam.getShopId());
             shop.setPrice(new BigDecimal(shopParam.getPrice()));
             flashSaleShopService.insert(shop);
+        }
+        // 更新缓存
+        for (FlashSaleShopParam shopParam : shopList) {
+            int shopId = shopParam.getShopId();
+            // 获取该商品对应的秒杀活动
+            Wrapper<FlashSaleShop> saleShopWrapper = new EntityWrapper<FlashSaleShop>()
+                    .setSqlSelect(FlashSaleShop.SALE_ID)
+                    .eq(FlashSaleShop.SHOP_ID, shopId);
+            List<Integer> saleIds = flashSaleShopService.selectList(saleShopWrapper).stream().map(FlashSaleShop::getSaleId).collect(Collectors.toList());
+            Wrapper<FlashSale> flashSaleWrapper = new EntityWrapper<FlashSale>()
+                    .eq(FlashSale.SALE_ID, saleIds)
+                    .eq(FlashSale.STATUS, DataStatusEnum.ENABLE.value);
+            List<FlashSale> flashSaleList = flashSaleService.selectList(flashSaleWrapper);
+            // 重新刷新缓存
+            RedisClient.delKey(CacheKeys.SHOP_FLASH_SALE_TIME_LIST + shopId);
+            for (FlashSale sale : flashSaleList) {
+                RedisClient.setListValue(CacheKeys.SHOP_FLASH_SALE_TIME_LIST + shopId, JsonUtil.toJson(sale));
+            }
         }
     }
 }

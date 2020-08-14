@@ -35,7 +35,7 @@ public class CacheKeys {
     /**
      * 商品秒杀时间
      */
-    public static final String SHOP_FLASH_SALE_TIME = "shop_flash_sale_time:";
+    public static final String SHOP_FLASH_SALE_TIME_LIST = "shop_flash_sale_time_list:";
 
     /**
      * 用户抢购商品状态
