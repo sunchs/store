@@ -82,6 +82,8 @@ public class ShopService implements IShopService {
                 saveShopImage(param, data.getShopId());
                 // 清除缓存
                 clearShopCache(data.getShopId());
+                // 更新商品库存
+                RedisClient.setValue(CacheKeys.SHOP_STOCK + data.getShopId(), param.getStock() + "");
             }
         } catch (Exception e) {
             Logger.error("保存商品信息异常，参数["+param+"]", e);

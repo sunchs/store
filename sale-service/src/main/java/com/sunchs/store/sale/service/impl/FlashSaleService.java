@@ -65,7 +65,7 @@ public class FlashSaleService implements IFlashSaleService {
         // 检查库存是否充足
         int shopStock = getShopStock(bean.getShopId());
         if (shopStock <= 0) {
-            return 2;
+            return 3;
         }
         // 记录抢购等待状态（0等待抢购  1抢购成功  2抢购失败）
         String statusKey = CacheKeys.USER_FLASH_SALE_STATUS + bean.getShopId() + ":" + bean.getUserId();
@@ -86,7 +86,7 @@ public class FlashSaleService implements IFlashSaleService {
         }
         Date time = new Date(System.currentTimeMillis());
         for (FlashSale flashSale : flashSaleList) {
-            if (Objects.equals(flashSale.getStatus(), 1) && time.after(flashSale.getStartTime()) && time.before(flashSale.getEndTime())) {
+            if (Objects.equals(flashSale.getStatus(), DataStatusEnum.ENABLE.value) && time.after(flashSale.getStartTime()) && time.before(flashSale.getEndTime())) {
                 return true;
             }
         }
