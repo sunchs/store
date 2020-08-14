@@ -1,20 +1,18 @@
 package com.sunchs.store.sale.service.impl;
 
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Envelope;
-import com.rabbitmq.client.MessageProperties;
 import com.sunchs.store.db.business.entity.FlashSale;
+import com.sunchs.store.db.business.service.impl.FlashSaleServiceImpl;
+import com.sunchs.store.framework.bean.FlashSaleQueueBean;
 import com.sunchs.store.framework.constants.CacheKeys;
 import com.sunchs.store.framework.data.Logger;
 import com.sunchs.store.framework.data.RedisClient;
+import com.sunchs.store.framework.util.JsonUtil;
 import com.sunchs.store.sale.bean.FlashSaleParam;
-import com.sunchs.store.sale.enums.BuyStatusEnum;
 import com.sunchs.store.sale.service.IFlashSaleService;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.Objects;
 
@@ -22,46 +20,45 @@ import java.util.Objects;
 public class FlashSaleService implements IFlashSaleService {
 
     @Autowired
+    private FlashSaleServiceImpl flashSaleService;
+    @Autowired
     private AmqpTemplate rabbitTemplate;
 
     @Override
-    public Integer buy(FlashSaleParam param) {
-//        // 检查活动状态
-//        boolean openFlashSale = isOpenFlashSale(param.getShopId());
-//        if ( ! openFlashSale) {
-//            return BuyStatusEnum.FlashSale.value;
-//        }
-//        // 检查库存是否充足
-//        int shopStock = getShopStock(param.getShopId());
-//        if (shopStock <= 0) {
-//            return BuyStatusEnum.FlashSale.value;
-//        }
-//        // 记录抢购等待状态
-
-        // 放入消息队列
-        rabbitTemplate.convertAndSend("king.amq.fanout", "", "123xxxx");
-//        try {
-//            kingRabbit.basicPublish("amq.fanout", "bbxxx", MessageProperties.TEXT_PLAIN, "123".getBytes());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-
-        // 响应"等待抢购状态"给用户
-        return BuyStatusEnum.Success.value;
+    public void save(FlashSaleParam param) {
+        try {
+            FlashSale data = new FlashSale();
+            data.setSaleId(param.getSaleId());
+            data.setTitle(param.getTitle());
+            data.setStartTime(param.getStartTime());
+            data.setEndTime(param.getEndTime());
+            data.setStatus(param.getStatus());
+            flashSaleService.insertOrUpdate(data);
+        } catch (Exception e) {
+            Logger.error("保存秒杀活动信息异常", e);
+        }
     }
 
-//    @Override
-//    public void execQueue(String s) {
-//
-//        try {
-//            System.out.println("execQueue:"+s);
-//
-////            channel.basicAck(envelope.getDeliveryTag(), true);
-//        } catch (Exception e) {
-//            Logger.error("处理消息队列异常，秒杀", e);
-//        }
-//    }
+    @Override
+    public Integer buy(FlashSaleQueueBean bean) {
+        // 检查活动状态
+        boolean openFlashSale = isOpenFlashSale(bean.getShopId());
+        if ( ! openFlashSale) {
+            return 2;
+        }
+        // 检查库存是否充足
+        int shopStock = getShopStock(bean.getShopId());
+        if (shopStock <= 0) {
+            return 2;
+        }
+        // 记录抢购等待状态（0等待抢购  1抢购成功  2抢购失败）
+        String statusKey = CacheKeys.USER_FLASH_SALE_STATUS + bean.getShopId() + ":" + bean.getUserId();
+        RedisClient.setValue(statusKey, 0 + "", 60 * 30);
+        // 放入消息队列
+        rabbitTemplate.convertAndSend("king.amq.fanout", "", JsonUtil.toJson(bean));
+        // 响应"等待抢购状态"给用户
+        return 0;
+    }
 
     /**
      * 检查活动状态

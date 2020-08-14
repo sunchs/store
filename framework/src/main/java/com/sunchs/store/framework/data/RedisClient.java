@@ -147,4 +147,19 @@ public class RedisClient {
             closeResource(jedis);
         }
     }
+
+    /**
+     * 递减1
+     */
+    public static void decr(String key) {
+        Jedis jedis = getPool().getResource();
+        try {
+            jedis.decr(key);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Redis异常");
+        } finally {
+            closeResource(jedis);
+        }
+    }
 }
