@@ -10,11 +10,11 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 秒杀活动商品表
+ * 秒杀活动产品表
  * </p>
  *
  * @author king
- * @since 2020-08-11
+ * @since 2020-08-14
  */
 @TableName("flash_sale_shop")
 public class FlashSaleShop extends Model<FlashSaleShop> {
@@ -44,11 +44,6 @@ public class FlashSaleShop extends Model<FlashSaleShop> {
      */
     private BigDecimal price;
 
-    /**
-     * 状态，0、停用；1、启用；2、删除
-     */
-    private Integer status;
-
     public Integer getId() {
         return id;
     }
@@ -77,13 +72,6 @@ public class FlashSaleShop extends Model<FlashSaleShop> {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
 
     public static final String ID = "id";
 
@@ -92,8 +80,6 @@ public class FlashSaleShop extends Model<FlashSaleShop> {
     public static final String SHOP_ID = "shop_id";
 
     public static final String PRICE = "price";
-
-    public static final String STATUS = "status";
 
     @Override
     protected Serializable pkVal() {
@@ -107,7 +93,6 @@ public class FlashSaleShop extends Model<FlashSaleShop> {
         ", saleId=" + saleId +
         ", shopId=" + shopId +
         ", price=" + price +
-        ", status=" + status +
         "}";
     }
 }

@@ -8,7 +8,6 @@
         <result column="sale_id" property="saleId" />
         <result column="shop_id" property="shopId" />
         <result column="price" property="price" />
-        <result column="status" property="status" />
     </resultMap>
 
 </mapper>

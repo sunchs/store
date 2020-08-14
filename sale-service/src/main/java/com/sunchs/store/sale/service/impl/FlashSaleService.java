@@ -1,19 +1,27 @@
 package com.sunchs.store.sale.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.sunchs.store.db.business.entity.FlashSale;
+import com.sunchs.store.db.business.entity.FlashSaleShop;
 import com.sunchs.store.db.business.service.impl.FlashSaleServiceImpl;
+import com.sunchs.store.db.business.service.impl.FlashSaleShopServiceImpl;
 import com.sunchs.store.framework.bean.FlashSaleQueueBean;
 import com.sunchs.store.framework.constants.CacheKeys;
 import com.sunchs.store.framework.data.Logger;
 import com.sunchs.store.framework.data.RedisClient;
+import com.sunchs.store.framework.util.FormatUtil;
 import com.sunchs.store.framework.util.JsonUtil;
 import com.sunchs.store.sale.bean.FlashSaleParam;
+import com.sunchs.store.sale.bean.FlashSaleShopParam;
 import com.sunchs.store.sale.service.IFlashSaleService;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -21,6 +29,8 @@ public class FlashSaleService implements IFlashSaleService {
 
     @Autowired
     private FlashSaleServiceImpl flashSaleService;
+    @Autowired
+    private FlashSaleShopServiceImpl flashSaleShopService;
     @Autowired
     private AmqpTemplate rabbitTemplate;
 
@@ -30,10 +40,13 @@ public class FlashSaleService implements IFlashSaleService {
             FlashSale data = new FlashSale();
             data.setSaleId(param.getSaleId());
             data.setTitle(param.getTitle());
-            data.setStartTime(param.getStartTime());
-            data.setEndTime(param.getEndTime());
+            data.setStartTime(FormatUtil.dateTime(param.getStartTime()));
+            data.setEndTime(FormatUtil.dateTime(param.getEndTime()));
             data.setStatus(param.getStatus());
-            flashSaleService.insertOrUpdate(data);
+            if (flashSaleService.insertOrUpdate(data)) {
+                // 保存抢购产品
+                saveFlashSaleShop(param.getShopList(), data);
+            }
         } catch (Exception e) {
             Logger.error("保存秒杀活动信息异常", e);
         }
@@ -84,5 +97,23 @@ public class FlashSaleService implements IFlashSaleService {
             return 0;
         }
         return stock.intValue();
+    }
+
+    /**
+     * 保存抢购产品
+     */
+    private void saveFlashSaleShop(List<FlashSaleShopParam> shopList, FlashSale flashSale) {
+        // 清理历史数据
+        Wrapper<FlashSaleShop> wrapper = new EntityWrapper<FlashSaleShop>()
+                .eq(FlashSaleShop.SALE_ID, flashSale.getSaleId());
+        flashSaleShopService.delete(wrapper);
+        // 保存新数据
+        for (FlashSaleShopParam shopParam : shopList) {
+            FlashSaleShop shop = new FlashSaleShop();
+            shop.setSaleId(flashSale.getSaleId());
+            shop.setShopId(shopParam.getShopId());
+            shop.setPrice(new BigDecimal(shopParam.getPrice()));
+            flashSaleShopService.insert(shop);
+        }
     }
 }

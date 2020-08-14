@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * 秒杀活动商品表 服务实现类
+ * 秒杀活动产品表 服务实现类
  * </p>
  *
  * @author king
- * @since 2020-08-11
+ * @since 2020-08-14
  */
 @Service
 public class FlashSaleShopServiceImpl extends ServiceImpl<FlashSaleShopMapper, FlashSaleShop> implements IFlashSaleShopService {
