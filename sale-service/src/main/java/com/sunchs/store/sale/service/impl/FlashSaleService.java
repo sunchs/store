@@ -125,11 +125,11 @@ public class FlashSaleService implements IFlashSaleService {
             int shopId = shopParam.getShopId();
             // 获取该商品对应的秒杀活动
             Wrapper<FlashSaleShop> saleShopWrapper = new EntityWrapper<FlashSaleShop>()
-                    .setSqlSelect(FlashSaleShop.SALE_ID)
+                    .setSqlSelect(FlashSaleShop.SALE_ID.concat(" as saleId"))
                     .eq(FlashSaleShop.SHOP_ID, shopId);
             List<Integer> saleIds = flashSaleShopService.selectList(saleShopWrapper).stream().map(FlashSaleShop::getSaleId).collect(Collectors.toList());
             Wrapper<FlashSale> flashSaleWrapper = new EntityWrapper<FlashSale>()
-                    .eq(FlashSale.SALE_ID, saleIds)
+                    .in(FlashSale.SALE_ID, saleIds)
                     .eq(FlashSale.STATUS, DataStatusEnum.ENABLE.value);
             List<FlashSale> flashSaleList = flashSaleService.selectList(flashSaleWrapper);
             // 重新刷新缓存

@@ -21,6 +21,16 @@ public class FlashSaleController extends BaseController {
     private FlashSaleService flashSaleService;
 
     /**
+     * 新增、编辑 秒杀活动信息
+     */
+    @PostMapping("/save")
+    public ResultData save(@RequestBody RequestData data) {
+        FlashSaleParam param = data.toObject(FlashSaleParam.class);
+        flashSaleService.save(param);
+        return success();
+    }
+
+    /**
      * 抢购商品
      */
     @PostMapping("/buy")
