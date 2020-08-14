@@ -42,5 +42,11 @@
             <artifactId>db</artifactId>
             <version>0.0.1</version>
         </dependency>
+        <!--RabbitMQ未封装依赖包-->
+<!--        <dependency>-->
+<!--            <groupId>com.rabbitmq</groupId>-->
+<!--            <artifactId>amqp-client</artifactId>-->
+<!--            <version>5.9.0</version>-->
+<!--        </dependency>-->
     </dependencies>
 </project>

@@ -1,8 +1,8 @@
 server:
-  port: 8003
+  port: 8002
 spring:
   application:
-    name: sale-service
+    name: order-service
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     username: root

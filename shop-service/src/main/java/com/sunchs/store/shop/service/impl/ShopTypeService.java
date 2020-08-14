@@ -74,7 +74,7 @@ public class ShopTypeService implements IShopTypeService {
      * 清理商品分类缓存
      */
     private void clearShopTypeCache(Integer typeId) {
-        RedisClient.delKey(CacheKeys.SHOP_TYPE_CACHE_KEY + typeId);
+        RedisClient.delKey(CacheKeys.SHOP_TYPE + typeId);
     }
 
     private List<ShopTypeVO> parseData(List<ShopType> ShopTypeList, Integer index) {
