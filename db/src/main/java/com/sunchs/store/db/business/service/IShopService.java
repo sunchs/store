@@ -19,4 +19,9 @@ public interface IShopService extends IService<Shop> {
      * 分页查询
      */
     Page<Shop> getPage(Wrapper<Shop> wrapper, Integer pageNow, Integer pageSize);
+
+    /**
+     * 减少库存
+     */
+    void decrStock(Integer shopId);
 }

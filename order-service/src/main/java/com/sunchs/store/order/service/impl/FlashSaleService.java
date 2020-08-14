@@ -2,6 +2,7 @@ package com.sunchs.store.order.service.impl;
 
 import com.sunchs.store.db.business.entity.OrderInfo;
 import com.sunchs.store.db.business.service.impl.OrderInfoServiceImpl;
+import com.sunchs.store.db.business.service.impl.ShopServiceImpl;
 import com.sunchs.store.framework.bean.FlashSaleQueueBean;
 import com.sunchs.store.framework.constants.CacheKeys;
 import com.sunchs.store.framework.data.Logger;
@@ -17,6 +18,8 @@ import java.util.Objects;
 public class FlashSaleService implements IFlashSaleService {
 
     @Autowired
+    private ShopServiceImpl shopService;
+    @Autowired
     private OrderInfoServiceImpl orderInfoService;
 
     @Override
@@ -27,8 +30,10 @@ public class FlashSaleService implements IFlashSaleService {
             Integer shopStock = RedisClient.getValue(stockKey, Integer.class);
             if (Objects.nonNull(shopStock) && shopStock.intValue() > 0) {
                 /**有库存处理**/
-                // 减少商品库存
+                // 减少Redis商品库存
                 RedisClient.decr(stockKey);
+                // 减少Mysql商品库存
+                shopService.decrStock(bean.getShopId());
                 // 下订单
                 OrderInfo info = new OrderInfo();
                 info.setUserId(bean.getUserId());

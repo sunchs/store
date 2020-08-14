@@ -2,6 +2,8 @@ package com.sunchs.store.db.business.mapper;
 
 import com.sunchs.store.db.business.entity.Shop;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 /**
  * <p>
@@ -13,4 +15,6 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface ShopMapper extends BaseMapper<Shop> {
 
+    @Update("UPDATE shop SET stock=stock-1 WHERE shop_id=${shopId}")
+    boolean decrShopStock(@Param("shopId") Integer shopId);
 }

@@ -8,8 +8,6 @@ import com.sunchs.store.db.business.service.IShopService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 /**
  * <p>
  * 商品表 服务实现类
@@ -25,5 +23,10 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
     public Page<Shop> getPage(Wrapper<Shop> wrapper, Integer pageNow, Integer pageSize) {
         Page<Shop> page = new Page<>(pageNow, pageSize);
         return selectPage(page, wrapper);
+    }
+
+    @Override
+    public void decrStock(Integer shopId) {
+        baseMapper.decrShopStock(shopId);
     }
 }
