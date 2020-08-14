@@ -24,6 +24,6 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:6006/eureka/
 
-logging:
-  level:
-    com.sunchs.store.db.business.mapper: DEBUG
+#logging:
+#  level:
+#    com.sunchs.store.db.business.mapper: DEBUG

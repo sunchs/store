@@ -46,6 +46,7 @@ public class FlashSaleService implements IFlashSaleService {
                     orderInfoService.insert(info);
                     // 修改响应状态
                     updateFlashSaleResponseStatus(1, bean);
+                    Logger.info("下单成功，订单号："+info.getOrderSn());
                 } else {
                     /**无库存处理**/
                     updateFlashSaleResponseStatus(2, bean);

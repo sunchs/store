@@ -30,6 +30,7 @@
         <module>shop-service</module>
         <module>order-service</module>
         <module>sale-service</module>
+        <module>test</module>
     </modules>
 
     <dependencies>
