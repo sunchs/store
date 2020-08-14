@@ -162,4 +162,23 @@ public class RedisClient {
             closeResource(jedis);
         }
     }
+
+    public static boolean setnx(String key, String value, int delay) {
+        Jedis jedis = getPool().getResource();
+        try {
+            boolean status = jedis.setnx(key, value) == 1;
+            if (delay > 0) {
+                jedis.expire(key, delay);
+            }
+            if (status) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Redis异常");
+        } finally {
+            closeResource(jedis);
+        }
+        return false;
+    }
 }
