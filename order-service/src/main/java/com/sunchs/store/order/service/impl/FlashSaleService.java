@@ -1,17 +1,23 @@
 package com.sunchs.store.order.service.impl;
 
+import com.sunchs.store.db.business.entity.OrderInfo;
+import com.sunchs.store.db.business.service.impl.OrderInfoServiceImpl;
 import com.sunchs.store.framework.bean.FlashSaleQueueBean;
 import com.sunchs.store.framework.constants.CacheKeys;
 import com.sunchs.store.framework.data.Logger;
 import com.sunchs.store.framework.data.RedisClient;
 import com.sunchs.store.framework.util.JsonUtil;
 import com.sunchs.store.order.service.IFlashSaleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
 @Service
 public class FlashSaleService implements IFlashSaleService {
+
+    @Autowired
+    private OrderInfoServiceImpl orderInfoService;
 
     @Override
     public void execQueue(String msg) {
@@ -24,7 +30,11 @@ public class FlashSaleService implements IFlashSaleService {
                 // 减少商品库存
                 RedisClient.decr(stockKey);
                 // 下订单
-
+                OrderInfo info = new OrderInfo();
+                info.setUserId(bean.getUserId());
+                info.setOrderSn("N" + System.currentTimeMillis());
+                info.setShopId(bean.getShopId());
+                orderInfoService.insert(info);
                 // 修改响应状态
                 updateFlashSaleResponseStatus(1, bean);
             } else {
