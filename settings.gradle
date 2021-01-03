@@ -1,0 +1,10 @@
+rootProject.name = 'store'
+include ':framework'
+include ':db'
+include ':registry'
+include ':gateway'
+include 'shop-service'
+include 'order-service'
+include 'sale-service'
+//include 'test'
+

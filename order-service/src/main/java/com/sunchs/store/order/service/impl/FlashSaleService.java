@@ -1,6 +1,7 @@
 package com.sunchs.store.order.service.impl;
 
 import com.sunchs.store.db.business.entity.OrderInfo;
+import com.sunchs.store.db.business.service.IShopService;
 import com.sunchs.store.db.business.service.impl.OrderInfoServiceImpl;
 import com.sunchs.store.db.business.service.impl.ShopServiceImpl;
 import com.sunchs.store.framework.bean.FlashSaleQueueBean;

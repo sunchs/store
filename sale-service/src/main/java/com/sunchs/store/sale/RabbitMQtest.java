@@ -23,10 +23,10 @@
 //        try {
 //            ConnectionFactory factory = new ConnectionFactory();
 //    // "guest"/"guest" by default, limited to localhost connections
-//            factory.setUsername("app_user");
-//            factory.setPassword("123456");
+//            factory.setUsername("admin");
+//            factory.setPassword("admin");
 //            factory.setVirtualHost("dms");
-//            factory.setHost("119.3.65.72");
+//            factory.setHost("localhost");
 //            factory.setPort(5672);
 //
 //            Connection conn = factory.newConnection();
@@ -45,11 +45,12 @@
 //                public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws
 //                        IOException {
 //                    String s = new String(body);
+//                    System.out.println(s);
 ////                    Integer integer = Integer.valueOf(s);
 ////                    System.out.println(s);
 ////                    channel.basicAck(envelope.getDeliveryTag(), true);
 //    //                super.handleDelivery(consumerTag, envelope, properties, body);
-//                    flashSaleService.execQueue(s);
+////                    flashSaleService.execQueue(s);
 //                }
 //            });
 //            return channel;

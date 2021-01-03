@@ -1,0 +1,15 @@
+group = 'com.sunchs.store'
+version = '0.0.1'
+
+dependencies {
+    implementation project(':framework')
+    implementation project(':db')
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'mysql:mysql-connector-java'
+//    implementation 'com.alibaba:druid-spring-boot-starter:1.1.5'
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    compile 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+}
+
+description = 'order-service'
+

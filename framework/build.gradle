@@ -1,0 +1,14 @@
+group = 'com.sunchs.store'
+version = '0.0.1'
+
+jar.enabled=true
+
+dependencies {
+    implementation project(":db")
+    compile 'com.google.code.gson:gson:2.8.5'
+    compile 'com.alibaba:fastjson:1.2.47'
+    compile 'commons-beanutils:commons-beanutils:1.9.3'
+    compile 'javax.mail:mail:1.4.7'
+}
+
+description = 'framework'

@@ -1,0 +1,45 @@
+plugins {
+	id 'org.springframework.boot' version '1.5.9.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+	id 'java'
+}
+
+group = 'com.sunchs.store'
+version = '0.0.1'
+
+allprojects {
+
+	apply plugin: 'java'
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'io.spring.dependency-management'
+
+	sourceCompatibility = '1.8'
+
+	repositories {
+		maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+		mavenCentral()
+		jcenter()
+		google()
+	}
+
+	dependencies {
+		testCompile group: 'junit', name: 'junit', version: '4.12'
+		implementation 'org.springframework.boot:spring-boot-starter'
+		implementation 'org.springframework.boot:spring-boot-starter-web'
+		implementation 'org.springframework.boot:spring-boot-starter-actuator'
+		implementation 'org.springframework.boot:spring-boot-starter-aop'
+		implementation 'redis.clients:jedis'
+	}
+
+	dependencyManagement {
+		imports {
+//			mavenBom "org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR9"
+			mavenBom "org.springframework.cloud:spring-cloud-dependencies:Edgware.RELEASE"
+
+		}
+	}
+}
+
+test {
+	useJUnitPlatform()
+}

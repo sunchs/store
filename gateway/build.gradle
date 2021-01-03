@@ -1,0 +1,13 @@
+group = 'com.sunchs.store'
+version = '0.0.1'
+
+dependencies {
+    implementation project(":framework")
+//    compile project(":db")
+    compile 'mysql:mysql-connector-java'
+    compile 'org.springframework.cloud:spring-cloud-starter-netflix-zuul'
+    compile 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+}
+
+description = 'gateway'
+

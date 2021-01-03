@@ -37,8 +37,6 @@ public class PreFilter extends ZuulFilter {
     public Object run() {
         RequestContext requestContext = RequestContext.getCurrentContext();
         HttpServletRequest request = requestContext.getRequest();
-        System.out.println(request.getRequestURL());
-        System.out.println(request.getRequestURI());
 
         /**
          * 忽略部分

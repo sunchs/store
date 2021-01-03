@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExceptionAspect {
 
-    @Pointcut(value = "execution(* com.sunchs.store.receive.controller.*.*(..))")
+    @Pointcut(value = "execution(* com.sunchs.store.sale.controller.*.*(..))")
     private void controllerException(){}
 
     @Around("controllerException()")

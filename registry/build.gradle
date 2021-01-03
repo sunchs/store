@@ -1,0 +1,9 @@
+group = 'com.sunchs.store'
+version = '0.0.1'
+
+dependencies {
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
+}
+
+description = 'registry'
+
