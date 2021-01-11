@@ -5,5 +5,25 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
 }
 
+//def execCmd(cmd) {
+//    def proc = cmd.execute()
+//    def txt = new StringBuffer()
+//    def error = new StringBuffer()
+//    proc.consumeProcessOutput(txt, error)
+//    proc.text
+//    println txt.toString()
+//    println error.toString()
+//    return error.length() == 0
+//}
+//task ffff(dependsOn: [build]){
+////    dependsOn('clean')
+//
+//    def b = execCmd("docker build -t registry:b1.0 -f registry/deploy/Dockerfile .")
+//    if (b) {
+//        println "成功"
+//    } else {
+//        println "失败"
+//    }
+//}
 description = 'registry'
 

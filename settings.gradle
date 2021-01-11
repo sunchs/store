@@ -6,5 +6,5 @@ include ':gateway'
 include 'shop-service'
 include 'order-service'
 include 'sale-service'
-//include 'test'
+include 'test'
 
